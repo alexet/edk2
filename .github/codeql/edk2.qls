@@ -9,4 +9,4 @@
 # Enable individual queries below.
 
 - include:
-    id: cpp/conditionallyuninitializedvariable
+    id: cpp/pointer-overflow-check
