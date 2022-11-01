@@ -85,7 +85,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: semmle-code-${{ matrix.language }}-db
-        path: ${{ runner.temp }}/codeql_dbs/cpp/trap
+        path: ${{ runner.temp }}/codeql_databases/cpp/trap
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
