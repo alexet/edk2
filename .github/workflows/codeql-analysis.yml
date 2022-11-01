@@ -39,24 +39,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: [
-          "ArmPkg",
-          "CryptoPkg",
-          "DynamicTablesPkg",
-          "FatPkg",
-          "FmpDevicePkg",
-          "IntelFsp2Pkg",
-          "IntelFsp2WrapperPkg",
-          "MdeModulePkg",
-          "MdePkg",
-          "PcAtChipsetPkg",
-          "PrmPkg",
-          "SecurityPkg",
-          "ShellPkg",
-          "SourceLevelDebugPkg",
-          "StandaloneMmPkg",
-          "UefiCpuPkg",
-          "UnitTestFrameworkPkg"]
+        language: [ 'cpp' ]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Learn more about CodeQL language support at https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/
 
     steps:
     - name: Checkout repository
@@ -66,9 +51,7 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: 'cpp'
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
-        # Learn more about CodeQL language support at https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/
+        languages: ${{ matrix.language }}
         config-file: ./.github/codeql/codeql-config.yml
         # Note: Add new queries to codeql-config.yml file as they are enabled.
 
@@ -96,7 +79,7 @@ jobs:
       run: python BaseTools/Edk2ToolsBuild.py -t GCC5
 
     - name: CI Build
-      run: stuart_ci_build -c .pytool/CISettings.py -p ${{ matrix.package }} -t DEBUG -a IA32,X64 TOOL_CHAIN_TAG=GCC5
+      run: stuart_ci_build -c .pytool/CISettings.py -t DEBUG -a IA32,X64 TOOL_CHAIN_TAG=GCC5
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
