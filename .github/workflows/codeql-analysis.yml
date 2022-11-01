@@ -11,7 +11,7 @@ name: "CodeQL"
 on:
   push:
     branches:
-      - master
+      - enable_codeql
   pull_request:
     branches:
       - master
