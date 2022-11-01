@@ -80,12 +80,16 @@ jobs:
 
     - name: CI Build
       run: stuart_ci_build -c .pytool/CISettings.py -t DEBUG -a IA32,X64 TOOL_CHAIN_TAG=GCC5
-      
+
+    - name: Zip Trap
+      run: zip -r trap.zip ${{ runner.temp }}/codeql_databases/cpp/trap
+
+
     - name: Upload CodeQL trap
       uses: actions/upload-artifact@v3
       with:
         name: semmle-code-${{ matrix.language }}-db
-        path: ${{ runner.temp }}/codeql_databases/cpp/trap
+        path: trap.zip
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
